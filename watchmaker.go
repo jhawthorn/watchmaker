@@ -31,8 +31,8 @@ func Watch(watcher *fsnotify.Watcher, ch chan struct{}) {
 
 func Build() {
 	cmd := exec.Command("make")
-   cmd.Stdout = os.Stdout
-   cmd.Stderr = os.Stderr
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
 	cmd.Run()
 }
 
