@@ -29,8 +29,19 @@ func Watch(watcher *fsnotify.Watcher, ch chan struct{}) {
 	}
 }
 
+var defaultArgs = []string{"make"}
+
 func Build() {
-	cmd := exec.Command("make")
+	args := os.Args[1:]
+	if len(args) == 0 {
+		args = defaultArgs
+	}
+	path, err := exec.LookPath(args[0])
+	if err != nil {
+		log.Fatal(err)
+	}
+	cmd := exec.Command(path)
+	cmd.Args = args
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	cmd.Run()
